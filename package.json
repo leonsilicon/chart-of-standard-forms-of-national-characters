@@ -1,0 +1,79 @@
+{
+  "name": "chart-of-standard-forms-of-national-characters",
+  "version": "0.0.0",
+  "description": "Typed JSON package for Taiwan's MOE Chart of Standard Forms of National Characters — 4,808 common (常用), 6,329 less-than-common (次常用), and 18,319 rarely-used (罕用) standard Traditional Chinese characters.",
+  "homepage": "https://github.com/leonsilicon/chart-of-standard-forms-of-national-characters#readme",
+  "bugs": {
+    "url": "https://github.com/leonsilicon/chart-of-standard-forms-of-national-characters/issues"
+  },
+  "license": "MIT",
+  "author": "leonsilicon",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonsilicon/chart-of-standard-forms-of-national-characters.git"
+  },
+  "keywords": [
+    "chart-of-standard-forms-of-national-characters",
+    "國字標準字體表",
+    "常用國字標準字體表",
+    "次常用國字標準字體表",
+    "罕用字體表",
+    "common-national-characters",
+    "less-than-common-national-characters",
+    "rarely-used-national-characters",
+    "chinese-characters",
+    "traditional-chinese",
+    "taiwan",
+    "moe",
+    "hanzi",
+    "chinese",
+    "dataset",
+    "zh-tw"
+  ],
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "common.json",
+    "common.json.d.ts",
+    "less-than-common.json",
+    "less-than-common.json.d.ts",
+    "rarely-used.json",
+    "rarely-used.json.d.ts",
+    "README.md"
+  ],
+  "type": "module",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "default": "./index.js"
+    },
+    "./common.json": "./common.json",
+    "./less-than-common.json": "./less-than-common.json",
+    "./rarely-used.json": "./rarely-used.json",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "parse": "node --experimental-strip-types scripts/parse.ts",
+    "check": "node -e \"import('./index.js').then((m)=>{const ok=(arr,n)=>Array.isArray(arr)&&arr.length===n&&arr.every((c)=>typeof c==='string'&&[...c].length===1); if(!ok(m.commonCharacters,4808))throw new Error('commonCharacters shape invalid');if(!ok(m.lessThanCommonCharacters,6329))throw new Error('lessThanCommonCharacters shape invalid');if(!ok(m.rarelyUsedCharacters,18319))throw new Error('rarelyUsedCharacters shape invalid');console.log('Dataset shape OK');})\"",
+    "test": "npm run check",
+    "prepack": "npm run check",
+    "prepublishOnly": "npm run check"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@typescript/native-preview": "7.0.0-dev.20260328.1",
+    "bumpp": "^11.0.1",
+    "typescript": "^6.0.2",
+    "vite-plus": "^0.1.14"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@latest",
+    "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
+  },
+  "packageManager": "bun@1.3.14"
+}
